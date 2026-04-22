@@ -3,12 +3,17 @@ import java.util.Scanner;
 
 public class PayrollReader {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 
         try {
-            FileReader fileReader = new FileReader("input absolute path here");
+            FileWriter fileWriter = new FileWriter("C:\\Users\\Amelia\\pluralsight\\workbook3\\payrollcalc\\src\\employeeswrite.csv");
+            FileReader fileReader = new FileReader("C:\\Users\\Amelia\\pluralsight\\workbook3\\payrollcalc\\src\\employees.csv");
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String print;
+            bufferedWriter.write("id|name|gross pay");
+            bufferedWriter.newLine();
             String header = bufferedReader.readLine();
 
             while ((print = bufferedReader.readLine()) != null) {
@@ -23,7 +28,12 @@ public class PayrollReader {
 
                 System.out.println("ID: " + employee.getEmployeeId() + " | Name: " + employee.getName()
                         + " | Gross Pay: $" + employee.getGrossPay());
+                bufferedWriter.write("ID: " + employee.getEmployeeId() + " | Name: " + employee.getName()
+                        + " | Gross Pay: $" + employee.getGrossPay());
+                bufferedWriter.newLine();
             }
+            bufferedReader.close();
+            bufferedWriter.close();
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
